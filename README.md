@@ -1,4 +1,4 @@
-# Candidate Management System for Recruitment Process
+# Client Management System for Recruitment Process
 
 ## Overview
 
