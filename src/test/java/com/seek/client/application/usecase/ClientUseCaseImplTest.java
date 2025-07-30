@@ -24,14 +24,17 @@ class ClientUseCaseImplTest {
 
     @Test
     void shouldRegisterClient() {
+        // Arrange
         Client client = Client.builder()
                 .firstName("John")
                 .lastName("Doe")
                 .birthDate(LocalDate.of(1990, 1, 1))
                 .build();
 
+        // Act
         clientUseCase.registerClient(client);
 
+        // Assert
         verify(clientRepository, times(1)).save(client);
     }
 
@@ -59,6 +62,7 @@ class ClientUseCaseImplTest {
 
     @Test
     void shouldCalculateClientMetrics() {
+        // Arrange
         List<Client> clients = List.of(
                 Client.builder().birthDate(LocalDate.now().minusYears(30)).build(),
                 Client.builder().birthDate(LocalDate.now().minusYears(40)).build()
@@ -66,8 +70,10 @@ class ClientUseCaseImplTest {
 
         when(clientRepository.findAll()).thenReturn(clients);
 
+        // Act
         var metrics = clientUseCase.getClientMetrics();
 
+        // Assert
         assertEquals(35.0, metrics.getAverageAge());
         assertEquals(5.0, metrics.getAgeStandardDeviation());
     }
